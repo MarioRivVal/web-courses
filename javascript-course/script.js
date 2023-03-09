@@ -110,7 +110,7 @@ function calcAge(birthYear) {
   console.log(this); // aqui esta undefined , no pertenece a ningun objeto
 }
 
-calcAge(1983);
+calcAge(1983); // resultado undefined
 
 // en una arrow function
 
@@ -119,22 +119,104 @@ const calAgeArrow = birthYear => {
   console.log(this); // aqui por el contrario puntara al global window
 };
 
-calAgeArrow(1983)
+calAgeArrow(1983);
 
-// dentro un method (object)
+// como method
 
 const mario = {
-year: 1983,
-calcAge: function(){
-  console.log(this); // dentro un method si referira al dueño del objeto, en este caso mario
-  console.log(2023 - this.year); // aqui llama a year que esta dentro este (this) object
-}
-}
-mario.calcAge()
+  year: 1983,
+  calcAge: function () {
+    console.log(this); // dentro un method si referira al dueño del objeto, en este caso mario
+    console.log(2023 - this.year); // aqui llama a year que esta dentro este (this) object
+  },
+};
+mario.calcAge();
 
 const ana = {
   year: 1987,
-}
+};
 
-ana.calcAge = mario.calcAge
+ana.calcAge = mario.calcAge;
 ana.calcAge();
+
+const f = mario.calcAge;
+// f()   esta es una funcion normal y la llamada se convierte in undefined
+//  y dara un error de no poder leer this.year
+
+//------     REGULAR FUNCTION & ARROW FUNCTION   -------     //
+
+//---------   usar o no usar regural function o arrow function---- //
+
+const marioR = {
+  firstName: 'mario',
+  year: 1983,
+  calcAge: function () {
+    console.log(2023 - this.year);
+  },
+
+  // greet: function(){
+  //   console.log(`hola ${this.firstName}`);
+  // }
+
+  // simpre mejor usar una regular function como method para evitar errore de undefined
+
+  // greet: ()=> console.log(`hey ${this.firstName}`),
+  // de esta manera, usando un arrow function nos dara un resultado de undefined
+  // por eso nunca hay que usar una arrow function como  method
+};
+
+//--------    cuando tenemos una function dentro un method ----- //
+
+const anaF = {
+  firstName: 'ana',
+  year: 1987,
+  calcAge: function () {
+    console.log(2023 - this.year);
+
+    // las siguientes lineas no podran acceder a la key word this
+
+    // const isMillenial = function(){
+    //   console.log(this.year >= 1981 && this.year <=1996);
+    // }
+    // isMillenial()
+
+    // solucion 1
+    // una vieja solucion es crear una nueva variable llamada "that" o "self"
+    // afuera de la funcion que cojera le clave this del objeto
+
+    // const self = this
+    // const isMillenial = function (){
+    //
+    // }
+    // isMillenial()
+
+    // solucion 2
+    // ahora la mas actual y adapta es usar un arrow function
+
+    const isMillenial = () => {
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+  },
+};
+anaF.calcAge();
+
+//------     ARGUMENT KEY WORD   -------     //
+
+// la palabra clave arguments esta disponible solo para las function expression y declaration
+
+const addExpr2 = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExpr2(2, 5);
+addExpr2(2, 5, 8, 10); // esto nos dice que podemos agregar mas argumentos de los
+// aunque si los parametros este caso son solo 2, y podriamos usarlos mas adelante
+
+// var addArrow2 = (a, b) => {
+//   console.log(arguments); // esta linea dara error
+//   return a + b;
+// };
+// addArrow2(2, 5, 8);
+
+// si intentamos usarlas con la arrow function nos dara error, aunque hay otros modos de modernos para tratar con multiples parametros.
