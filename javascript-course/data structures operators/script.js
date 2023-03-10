@@ -12,11 +12,6 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  // aqui agregamos una funcion como metodo
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
-
   openingHours: {
     thu: {
       open: 12,
@@ -31,7 +26,73 @@ const restaurant = {
       close: 24,
     },
   },
+
+  // aqui agregamos una funcion como metodo
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderDelivery: function({obj}){
+    console.log(obj);
+    // console.log(`Order recived! ${this.mainMenu[mainIndex]} and ${this.starterMenu[starterIndex]} will be delivered at ${time} to ${address}`);
+  }
 };
+
+restaurant.orderDelivery({
+  time:'22:30',
+  address:'via del sole, 21',
+  mainIndex:2,
+  starterIndex:2
+})
+
+// -----  DESTRUCTURING OBJECTS---- //
+
+// simplememte llamando el nombre del dato y variable obtendra el mismo nombre
+const { name, openingHours, categories } = restaurant;
+console.log(name, openingHours, categories);
+
+// o si queremos darle otro nombre a la variable:
+
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(restaurantName, hours, tags);
+
+// para estableces valores predeterminados a propiedades no sabemos si existen o no, una buena practica es darles el valor vacio []
+
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
+
+// cambiando el valor de las variables
+// es posible hacerlo muy parecido con los array pero habra que envolver el script entre parentesis redonda ()
+
+let d = 111;
+let e = 999;
+
+const obj = { d: 23, e: 7, f: 14 };
+({ d, e } = obj);
+console.log(d, e);
+
+// objetos anidados (nested)
+
+// const { fri } = openingHours;
+// console.log(fri);
+
+// de esta manera podemos ver el objeto con open & close pero necesitamos variables separadas para open & close:
+
+// const {
+//   fri: { open, close },
+// } = openingHours;
+// console.log(open, close);
+
+// si quisieramos tambien podriamos cambiar el nombre:
+
+const {
+  fri: { open: s, close: t },
+} = openingHours;
+console.log(s, t);
 
 // -----  DESTRUCTURING ARRAYS---- //
 
@@ -85,3 +146,8 @@ console.log(i, j);
 const nested2 = [2, 4, [5, 6]];
 const [f, , [g, h]] = nested2;
 console.log(f, g, h);
+
+// dando un valor default (1) cuando no sabemos cuantos valores hy en un array
+
+const [p = 1, q = 1, r = 1] = [8, 9];
+console.log(p, q, r); // en este caso p & q ahora son 8 & 9 pero r se queda en 1 porque no hay otro valor en el array
