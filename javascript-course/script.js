@@ -219,4 +219,89 @@ addExpr2(2, 5, 8, 10); // esto nos dice que podemos agregar mas argumentos de lo
 // };
 // addArrow2(2, 5, 8);
 
-// si intentamos usarlas con la arrow function nos dara error, aunque hay otros modos de modernos para tratar con multiples parametros.
+// si intentamos usarlas con la arrow function nos dara error, aunque hay otros modos d
+
+//------ SHORT EXEMPLE OF PRIMITIES VS OBJECTS (PRIMITIVES AND REFERENCE TYPES) -------  //
+
+//---    primtive types ----  //
+
+let age = 39;
+let oldAge = age;
+age = 40;
+console.log(age);
+console.log(oldAge);
+// asi como nos esperavamos ,el valor de age fue cambiado y el viejo valor almacenado en oldAge
+
+//---    reference types (objetos)----  //
+
+const yo = {
+  name: 'mario',
+  age: 39,
+};
+
+const friend = yo;
+friend.age = 36;
+
+console.log(yo);
+console.log(friend);
+
+// notaremos que queriendo cambiar el valor de friend.age , este cambiara en los dos objetos, esto porque amobos son inguales y apuntaran a la misma direccion en el call stack y luego al monton de la memoria ,memory heap
+
+//  -----  otro ejemplo ----- //
+
+let lastName = 'Rivera';
+let oldLastName = lastName;
+lastName = 'Valverde';
+
+console.log(lastName);
+console.log(oldLastName);
+// resultados com se esperaba
+
+const aninaHija = {
+  fistName: 'Ana',
+  lastName: 'Gascon',
+  age: 35,
+};
+
+const aninaMother = aninaHija;
+aninaMother.age = 70;
+
+console.log(aninaHija);
+console.log(aninaMother);
+
+// como se esperaba, aqui pasa lo mismo, age cambia en los dos objetos
+
+// ----- copiar el objeto ----  //
+
+const aninaHija2 = {
+  fistName: 'Ana',
+  lastName: 'Gascon',
+  age: 35,
+};
+
+const aninaMother2 = Object.assign({}, aninaHija2);
+aninaMother2.age = 70; // aqui cambiamos el valor de age
+
+console.log(aninaHija2);
+console.log(aninaMother2);
+// efectivamente de esta manera se preservan los valores de aninaHija2 y se crea otra direccion para aninaMother2
+// aun asi esta funcion Object.assign funciona solo en el primer nivel, teniendo un objeto dentro otro objeto las cosas cambian.
+
+//  por ejemplo
+
+const aninaHija3 = {
+  fistName: 'Ana',
+  lastName: 'Gascon',
+  age: 35,
+  family: ['Toño, Ana'],
+};
+
+const aninaMother3 = Object.assign({}, aninaHija3);
+aninaMother3.age = 70;
+
+aninaHija3.family.push('Mario');
+
+console.log(aninaHija3);
+console.log(aninaMother3);
+
+// y como se ve, agregando un nuevo elemento en el array family de aninaHija3, el mismo se agrega en aninaMother3 porque como dicho la funcion Object.assign funciona solo en superficie ,par poder cambiar en profundida se necesita un deep clone en librerias externas que aprenderemos mas adelante.
