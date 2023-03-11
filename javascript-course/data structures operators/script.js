@@ -57,22 +57,63 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`here your pasta with ${ing1},${ing2},${ing3}`);
   },
+
+  // ejemplo 4
+  // creamos uns funcion para poder almacenar algun argumento en una variable y el resto en un array con el rest pattern
+
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
 };
 
-// llamando el ejemplo 2
-// aqui llamamos la funcion con sus valores
-restaurant.orderDelivery({
-  time: '22:30',
-  address: 'via del sole, 21',
-  mainIndex: 2,
-  starterIndex: 2,
-});
+// -----  THE REST PATTERN AND PARAMETERS  ---- //
 
-//aqui llamamos la funcion con los valores predeterminados
+// 1. destructuracion
 
-restaurant.orderDelivery({
-  address: 'via del sole, 21',
-});
+//--- in arrays--- //
+// este es un spread operator porque los tres puntos estan a la derecha del operador de asignacion (=),
+const arr2 = [1, 2, ...[3, 4, 5]];
+// estando a la izquierzq, osea antes dek operador de asignacion (=), es un rest pattern:
+const [k, l, , ...others] = [1, 2, 3, 4, 5];
+console.log(k, l, others);
+
+// otro ejemplo: donde en un script pueden estar los dos operadores a la izquierda y derecha
+
+const [primo, , segundo, ...resto] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(primo, segundo, resto);
+
+//--- in objects ---//
+
+const { sat: weekEnd, ...jobDays } = restaurant.openingHours;
+console.log(weekEnd, jobDays);
+
+// 2. en functions
+// cuando destructuramos un array para pasar los argumentos individualmente en los parametros de una funcion
+
+// en una simple suma:
+const add = function (...numbers) {
+  // aqui los argumentos vienen almacenados en un array como se ve en console.log(numbers)
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) sum += numbers[i];
+  console.log(numbers);
+  console.log(sum);
+};
+add(2, 3);
+add(2, 3, 4, 5);
+add(2, 3, 4, 5, 7, 9, 12);
+
+// si tuviaremos una variable con los argumentos dentro una array
+const u = [23, 5, 7];
+add(...u); // aqui los argumentos vienen propagados o metidos afuera del array
+
+// llamamos el ejemplo 4
+restaurant.orderPizza('mushroom', 'patatas', 'oil', 'tomate');
+
+// NOTA: spread operator se usa donde escribiriamos valores separados por una coma, el rest pattern se usa donde escribiriamos nombre de variables separados por coma
 
 // -----  THE SPREAD OPERATOR (...) (operador de propagacion)---- //
 
@@ -185,6 +226,21 @@ const {
   fri: { open: s, close: t },
 } = openingHours;
 console.log(s, t);
+
+// llamando el ejemplo 2
+// aqui llamamos la funcion con sus valores
+restaurant.orderDelivery({
+  time: '22:30',
+  address: 'via del sole, 21',
+  mainIndex: 2,
+  starterIndex: 2,
+});
+
+//aqui llamamos la funcion con los valores predeterminados
+
+restaurant.orderDelivery({
+  address: 'via del sole, 21',
+});
 
 // -----  DESTRUCTURING ARRAYS---- //
 
