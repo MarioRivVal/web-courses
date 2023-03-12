@@ -29,12 +29,22 @@ const restaurant = {
   },
 
   // For Destructuring objects
-  orderDelivery: function ({ starterIndex, mainIndex, time= '20:00', address }) {
+  orderDelivery: function ({
+    starterIndex,
+    mainIndex,
+    time = '20:00',
+    address,
+  }) {
     console.log(
       `Order recived! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} deliver to ${address} at ${time}`
     );
   },
   // como se puede ver podriamos tambien especificar valores predeteminados com en 'time= '20:00'' , si por siacaso en los parametros faltara el valor, llamamos la funcion una segunda vez sin especificar 'time'
+
+  // For spread operator
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`here your pasta with ${ing1},${ing2},${ing3}`);
+  },
 };
 
 // -----  DESTRUCTURING ARRAYS---- //
