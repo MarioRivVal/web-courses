@@ -46,6 +46,9 @@ console.log(...string); // RESP:: M a r i o
 //NOTA: recordar que valores multiplos separados por coma solo se esperan cuando pasamos argumentos en una funcion o cuando creamos arrays
 // console.log(`${...string} Rivera`); este script por ejemplo no se acepta porque en '${} 'se espera una variable
 
+//--- En funciones ----//
+
+// Lo usamos tambien para pasar datos de un array como argumentos en un funcion:
 // Ejemplo con la funcion 'orderPasta' en el objeto 'restaurant'
 
 // const ingredients = [
@@ -57,6 +60,8 @@ console.log(...string); // RESP:: M a r i o
 const ingredients = ['oil', 'mushroom', 'peppers'];
 restaurant.orderPasta(...ingredients); //RESP:: here your pasta with oil,mushroom,peppers
 
+
+//---En objetos----//
 
 // Usemos el spread operator en objetos
 // despues de ES6 podemos tambien usar el spread operator en objetos auqnue si no son iterables

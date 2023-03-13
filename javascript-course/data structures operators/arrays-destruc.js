@@ -45,6 +45,12 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`here your pasta with ${ing1},${ing2},${ing3}`);
   },
+
+  // For rest pattern
+  orderPizza: function(mainIngredient,...othersIngredients){
+    console.log(mainIngredient);
+    console.log(othersIngredients);
+  }
 };
 
 // -----  DESTRUCTURING ARRAYS---- //
